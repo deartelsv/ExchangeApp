@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ExchangeApp</string>
+    <string name="home">Главная</string>
+    <string name="favourite">Избранное</string>
+</resources>
