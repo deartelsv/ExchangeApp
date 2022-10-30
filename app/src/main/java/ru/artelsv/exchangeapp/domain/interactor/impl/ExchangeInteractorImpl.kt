@@ -1,6 +1,9 @@
-package ru.artelsv.exchangeapp.domain
+package ru.artelsv.exchangeapp.domain.interactor.impl
 
 import kotlinx.coroutines.flow.Flow
+import ru.artelsv.exchangeapp.domain.repository.ExchangeRepository
+import ru.artelsv.exchangeapp.domain.interactor.ExchangeInteractor
+import ru.artelsv.exchangeapp.domain.model.BaseCurrency
 import javax.inject.Inject
 
 class ExchangeInteractorImpl @Inject constructor(

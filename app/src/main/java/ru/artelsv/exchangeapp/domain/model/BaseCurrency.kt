@@ -1,4 +1,4 @@
-package ru.artelsv.exchangeapp.domain
+package ru.artelsv.exchangeapp.domain.model
 
 import ru.artelsv.exchangeapp.data.model.Currency
 

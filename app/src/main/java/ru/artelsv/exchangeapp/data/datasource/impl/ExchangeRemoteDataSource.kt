@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 import ru.artelsv.exchangeapp.data.datasource.ExchangeDataSource
 import ru.artelsv.exchangeapp.data.model.Currency
 import ru.artelsv.exchangeapp.data.service.ExchangeService
-import ru.artelsv.exchangeapp.domain.BaseCurrency
+import ru.artelsv.exchangeapp.domain.model.BaseCurrency
 import ru.artelsv.exchangeapp.utils.take
 import javax.inject.Inject
 

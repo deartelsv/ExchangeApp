@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import ru.artelsv.exchangeapp.R
-import ru.artelsv.exchangeapp.domain.BaseCurrency
-import ru.artelsv.exchangeapp.domain.ExchangeInteractor
+import ru.artelsv.exchangeapp.domain.interactor.ExchangeInteractor
+import ru.artelsv.exchangeapp.domain.model.BaseCurrency
 import javax.inject.Inject
 
 @HiltViewModel

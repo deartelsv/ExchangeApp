@@ -2,10 +2,10 @@ package ru.artelsv.exchangeapp.data
 
 import kotlinx.coroutines.flow.*
 import ru.artelsv.exchangeapp.data.datasource.ExchangeDataSource
-import ru.artelsv.exchangeapp.domain.BaseCurrency
-import ru.artelsv.exchangeapp.domain.ExchangeRepository
-import ru.artelsv.exchangeapp.domain.toModel
-import ru.artelsv.exchangeapp.domain.toModelList
+import ru.artelsv.exchangeapp.domain.model.BaseCurrency
+import ru.artelsv.exchangeapp.domain.model.toModel
+import ru.artelsv.exchangeapp.domain.model.toModelList
+import ru.artelsv.exchangeapp.domain.repository.ExchangeRepository
 import javax.inject.Inject
 import javax.inject.Named
 

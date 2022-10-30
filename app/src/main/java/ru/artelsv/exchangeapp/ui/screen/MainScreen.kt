@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.artelsv.exchangeapp.ExchangeTopBar
 import ru.artelsv.exchangeapp.R
-import ru.artelsv.exchangeapp.domain.BaseCurrency
+import ru.artelsv.exchangeapp.domain.model.BaseCurrency
 import ru.artelsv.exchangeapp.ui.viewmodel.MainScreenState
 import ru.artelsv.exchangeapp.ui.viewmodel.MainViewModel
 

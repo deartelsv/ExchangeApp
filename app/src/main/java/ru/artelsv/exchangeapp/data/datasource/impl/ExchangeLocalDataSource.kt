@@ -7,7 +7,7 @@ import ru.artelsv.exchangeapp.data.database.ExchangeDao
 import ru.artelsv.exchangeapp.data.datasource.ExchangeDataSource
 import ru.artelsv.exchangeapp.data.model.Currency
 import ru.artelsv.exchangeapp.data.model.toModel
-import ru.artelsv.exchangeapp.domain.BaseCurrency
+import ru.artelsv.exchangeapp.domain.model.BaseCurrency
 import javax.inject.Inject
 
 class ExchangeLocalDataSource @Inject constructor(

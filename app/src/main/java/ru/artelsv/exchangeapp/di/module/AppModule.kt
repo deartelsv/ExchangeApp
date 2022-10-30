@@ -19,9 +19,9 @@ import ru.artelsv.exchangeapp.data.datasource.impl.ExchangeLocalDataSource
 import ru.artelsv.exchangeapp.data.datasource.impl.ExchangeRemoteDataSource
 import ru.artelsv.exchangeapp.data.service.Constants.BASE_URL
 import ru.artelsv.exchangeapp.data.service.ExchangeService
-import ru.artelsv.exchangeapp.domain.ExchangeInteractor
-import ru.artelsv.exchangeapp.domain.ExchangeInteractorImpl
-import ru.artelsv.exchangeapp.domain.ExchangeRepository
+import ru.artelsv.exchangeapp.domain.interactor.ExchangeInteractor
+import ru.artelsv.exchangeapp.domain.interactor.impl.ExchangeInteractorImpl
+import ru.artelsv.exchangeapp.domain.repository.ExchangeRepository
 import ru.artelsv.exchangeapp.utils.DefaultInterceptor
 import javax.inject.Named
 import javax.inject.Singleton

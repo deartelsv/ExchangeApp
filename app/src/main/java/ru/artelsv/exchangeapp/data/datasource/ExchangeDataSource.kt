@@ -2,7 +2,7 @@ package ru.artelsv.exchangeapp.data.datasource
 
 import kotlinx.coroutines.flow.Flow
 import ru.artelsv.exchangeapp.data.model.Currency
-import ru.artelsv.exchangeapp.domain.BaseCurrency
+import ru.artelsv.exchangeapp.domain.model.BaseCurrency
 
 interface ExchangeDataSource {
 

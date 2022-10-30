@@ -2,7 +2,7 @@ package ru.artelsv.exchangeapp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.artelsv.exchangeapp.domain.BaseCurrency
+import ru.artelsv.exchangeapp.domain.model.BaseCurrency
 
 @Entity(tableName = "currency")
 data class Currency(

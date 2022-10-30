@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import ru.artelsv.exchangeapp.domain.BaseCurrency
-import ru.artelsv.exchangeapp.domain.ExchangeInteractor
+import ru.artelsv.exchangeapp.domain.interactor.ExchangeInteractor
+import ru.artelsv.exchangeapp.domain.model.BaseCurrency
 import javax.inject.Inject
 
 @HiltViewModel
