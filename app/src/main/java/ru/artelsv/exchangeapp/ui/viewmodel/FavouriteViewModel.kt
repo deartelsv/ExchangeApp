@@ -31,6 +31,19 @@ class FavouriteViewModel @Inject constructor(
         }
     }
 
+    fun sort(sort: Sort) {
+        val state = (state.value as? FavouriteScreenState.DataLoaded) ?: return
+
+        val newList = when (sort) {
+            is Sort.Asc -> state.values.sortedBy { item -> item.name }
+            is Sort.Desc -> state.values.sortedByDescending { item -> item.name }
+            else -> state.values
+        }
+
+        _state.value = FavouriteScreenState.DataLoaded(newList)
+    }
+
+
     private fun updateState() {
         viewModelScope.launch(Dispatchers.IO) {
             interactor.getFavouriteList()

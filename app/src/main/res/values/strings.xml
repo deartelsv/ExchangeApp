@@ -2,4 +2,13 @@
     <string name="app_name">ExchangeApp</string>
     <string name="home">Главная</string>
     <string name="favourite">Избранное</string>
+    <string name="main_title">Обмен валют</string>
+    <string name="favourite_title">Избранное</string>
+    <string name="main_sort_asc">Asc</string>
+    <string name="main_sort_desc">Desc</string>
+    <string name="main_sort_asc_value">AscValue</string>
+    <string name="main_sort_desc_value">DescValue</string>
+
+    <string name="not_selected_currency">\?</string>
+    <string name="empty_error">Error</string>
 </resources>

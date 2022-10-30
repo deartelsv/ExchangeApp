@@ -13,7 +13,7 @@ interface ExchangeService {
     suspend fun getSymbolsList() : ExchangeResponse
 
     @GET(CONVERT_URL)
-    suspend fun getConvertList(@Query("symbols") symbols: List<String>, @Query("base") base: String) : Convert
+    suspend fun getConvertList(@Query("symbols") symbols: String, @Query("base") base: String) : Convert
 }
 
 object Constants {

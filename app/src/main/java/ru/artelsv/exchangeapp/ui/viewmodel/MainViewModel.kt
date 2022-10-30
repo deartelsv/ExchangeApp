@@ -1,11 +1,16 @@
 package ru.artelsv.exchangeapp.ui.viewmodel
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import ru.artelsv.exchangeapp.R
 import ru.artelsv.exchangeapp.domain.BaseCurrency
 import ru.artelsv.exchangeapp.domain.ExchangeInteractor
 import javax.inject.Inject
@@ -17,6 +22,8 @@ class MainViewModel @Inject constructor(
 
     private val _state = MutableStateFlow<MainScreenState>(MainScreenState.Loading)
     val state = _state.asStateFlow()
+
+    private var sort: Sort = Sort.Asc
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -32,15 +39,8 @@ class MainViewModel @Inject constructor(
 
     fun sort(sort: Sort) {
         val state = (state.value as? MainScreenState.DataLoaded) ?: return
-
-        val newList = when (sort) {
-            is Sort.Asc -> state.values.sortedBy { item -> item.name }
-            is Sort.Desc -> state.values.sortedByDescending { item -> item.name }
-            is Sort.AscValue -> state.values.sortedBy { item -> item.value }
-            is Sort.DescValue -> state.values.sortedByDescending { item -> item.value }
-        }
-
-        _state.value = MainScreenState.DataLoaded(newList, state.selected)
+        this.sort = sort
+        _state.value = MainScreenState.DataLoaded(state.values.sort(sort), state.selected)
     }
 
     fun setCurrency(currency: BaseCurrency.Currency) {
@@ -56,14 +56,22 @@ class MainViewModel @Inject constructor(
     private fun updateState(currency: BaseCurrency.Currency) {
         viewModelScope.launch(Dispatchers.IO) {
             interactor.getList(currency)
+                .onStart { _state.value = MainScreenState.Loading }
                 .catch {
                     _state.value = MainScreenState.Error
                 }
                 .collect {
-                    _state.value = MainScreenState.DataLoaded(it, currency)
+                    _state.value = MainScreenState.DataLoaded(it.sort(sort), currency)
                 }
         }
     }
+}
+
+fun List<BaseCurrency.Currency>.sort(sort: Sort) = when (sort) {
+    is Sort.Asc -> sortedBy { it.name }
+    is Sort.Desc -> sortedByDescending { it.name }
+    is Sort.AscValue -> sortedBy { it.value }
+    is Sort.DescValue -> sortedByDescending { it.value }
 }
 
 sealed class MainScreenState {
@@ -76,10 +84,12 @@ sealed class MainScreenState {
     ) : MainScreenState()
 }
 
-sealed class Sort {
+sealed class Sort(
+    @StringRes val textRes: Int
+) {
 
-    object Asc : Sort()
-    object Desc : Sort()
-    object AscValue : Sort()
-    object DescValue : Sort()
+    object Asc : Sort(R.string.main_sort_asc)
+    object Desc : Sort(R.string.main_sort_desc)
+    object AscValue : Sort(R.string.main_sort_asc_value)
+    object DescValue : Sort(R.string.main_sort_desc_value)
 }

@@ -1,6 +1,7 @@
 package ru.artelsv.exchangeapp.ui.screen
 
-import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -9,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.artelsv.exchangeapp.ExchangeTopBar
@@ -17,10 +19,7 @@ import ru.artelsv.exchangeapp.domain.BaseCurrency
 import ru.artelsv.exchangeapp.ui.viewmodel.MainScreenState
 import ru.artelsv.exchangeapp.ui.viewmodel.MainViewModel
 
-/**
- * Я до конца пока непонимаю компоуз (https://developer.android.com/jetpack/compose/state#viewmodels-source-of-truth)
- * нельзя поидеи спускать вьюМодель ниже по компоуз функциям)) Так шо ниже написанное легально
- */
+@ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @Composable
 fun MainScreen(
@@ -32,7 +31,6 @@ fun MainScreen(
         when (state) {
             is MainScreenState.DataLoaded -> {
                 ExchangeTopBar {
-                    Log.e("a", it.toString())
                     viewModel.sort(it)
                 }
 
@@ -48,6 +46,7 @@ fun MainScreen(
     }
 }
 
+@ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @Composable
 fun ListContent(
@@ -60,10 +59,13 @@ fun ListContent(
         Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item {
+        stickyHeader {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier
+                    .padding(bottom = 16.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.background)
             ) {
                 Card(
                     modifier = Modifier
@@ -72,7 +74,9 @@ fun ListContent(
                     onClick = { }
                 ) {
                     Text(
-                        text = if (selected is BaseCurrency.Currency) selected.name else "?",
+                        text = if (selected is BaseCurrency.Currency) selected.name else stringResource(
+                            id = R.string.not_selected_currency
+                        ),
                         modifier = Modifier
                             .padding(horizontal = 32.dp, vertical = 16.dp)
                             .align(Alignment.CenterHorizontally)
@@ -127,7 +131,7 @@ fun ListContent(
 fun ErrorContent() {
     Surface(modifier = Modifier.fillMaxSize()) {
 
-        Text(text = "Error")
+        Text(text = stringResource(id = R.string.empty_error))
     }
 }
 

@@ -3,6 +3,7 @@ package ru.artelsv.exchangeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import ru.artelsv.exchangeapp.ui.screen.FavouriteScreen
 import ru.artelsv.exchangeapp.ui.screen.MainScreen
 import ru.artelsv.exchangeapp.ui.theme.ExchangeAppTheme
 
+@ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -58,7 +60,7 @@ fun ExchangeBottomNavigation(nav: NavController) {
                 )
             },
             label = { Text(stringResource(R.string.home)) },
-            selected = true,
+            selected = currentRoute == Screen.Main.route,
             onClick = {
                 if (Screen.Main.route != currentRoute) {
                     nav.navigate(Screen.Main.route)
@@ -74,7 +76,7 @@ fun ExchangeBottomNavigation(nav: NavController) {
                 )
             },
             label = { Text(stringResource(R.string.favourite)) },
-            selected = true,
+            selected = currentRoute == Screen.Favourite.route,
             onClick = {
                 if (Screen.Favourite.route != currentRoute) {
                     nav.navigate(Screen.Favourite.route)
@@ -85,6 +87,7 @@ fun ExchangeBottomNavigation(nav: NavController) {
     }
 }
 
+@ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @Composable
 fun ExchangeNavHost(nav: NavHostController, paddingValues: PaddingValues) {

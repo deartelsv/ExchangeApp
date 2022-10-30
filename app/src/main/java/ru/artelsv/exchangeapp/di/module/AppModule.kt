@@ -78,6 +78,7 @@ interface AppBindsModule {
     fun bindLocalDatasource(impl: ExchangeLocalDataSource): ExchangeDataSource
 
     @Binds
+    @Singleton
     fun bindExchangeRepository(impl: ExchangeRepositoryImpl): ExchangeRepository
 
     @Binds

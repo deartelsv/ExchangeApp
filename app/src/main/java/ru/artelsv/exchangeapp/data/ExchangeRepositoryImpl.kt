@@ -24,18 +24,10 @@ class ExchangeRepositoryImpl @Inject constructor(
 
         return when (currency) {
             null -> {
-                remote.getList().map { it.toModelList() }.combine(local.getFavouriteList()) { list, favList ->
-                    val newList = arrayListOf<BaseCurrency.Currency>()
-                    newList.addAll(list)
-
-                    favList.forEach { item ->
-                        val id = newList.indexOfFirst { it.name == item.name }
-                        if (id != -1) {
-                            newList[id].favourite = item.favourite
-                        }
-                    }
-
-                    newList
+                if (lastList.isEmpty()) {
+                    initList()
+                } else {
+                    favUpdateList()
                 }
             }
             else -> {
@@ -56,11 +48,41 @@ class ExchangeRepositoryImpl @Inject constructor(
         }
     }
 
-
     override fun getFavouriteList(): Flow<List<BaseCurrency.Currency>> =
         local.getFavouriteList()
 
     override suspend fun setFavourite(currency: BaseCurrency.Currency) {
         local.setFavourite(currency.toModel())
     }
+
+    private fun initList() =
+        remote.getList().map { it.toModelList() }.combine(local.getFavouriteList()) { list, favList ->
+            val newList = arrayListOf<BaseCurrency.Currency>()
+            newList.addAll(list)
+
+            favList.forEach { item ->
+                val id = newList.indexOfFirst { it.name == item.name }
+                if (id != -1) {
+                    newList[id].favourite = item.favourite
+                }
+            }
+
+            lastList = newList
+            newList
+        }
+
+    private fun favUpdateList() =
+        local.getFavouriteList().map { favList ->
+            val newList = arrayListOf<BaseCurrency.Currency>()
+            newList.addAll(lastList)
+
+            favList.forEach { item ->
+                val id = newList.indexOfFirst { it.name == item.name && it.favourite != item.favourite}
+                if (id != -1) {
+                    newList[id].favourite = item.favourite
+                }
+            }
+
+            newList
+        }
 }

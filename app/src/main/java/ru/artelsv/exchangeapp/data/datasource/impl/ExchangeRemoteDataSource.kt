@@ -22,7 +22,7 @@ class ExchangeRemoteDataSource @Inject constructor(
         to: List<BaseCurrency.Currency>
     ): Flow<Map<String, Double>> = flow {
         emit(service.getConvertList(
-            to.map { it.name },
+            to.map { it.name }.toNumericalString(),
             currency.name
         ).rates)
     }
@@ -31,3 +31,5 @@ class ExchangeRemoteDataSource @Inject constructor(
 
     override suspend fun setFavourite(currency: Currency) { }
 }
+
+fun <T> List<T>.toNumericalString(splitChar: String = ",") = toString().replace(" ", splitChar).replace("[","").replace("]", "")
